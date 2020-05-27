@@ -10,7 +10,7 @@ const connectDB = async () => {
             useFindAndModify: false
         })
 
-        console.log('Mongoose connected');
+        console.log('Mongoose connected...');
 
     } catch (error) {
         console.log(error);
