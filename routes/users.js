@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const { check, validationResult } = require('express-validator');
-
 const User = require('../models/User');
 
 //@route    POST api/users
@@ -23,7 +24,7 @@ router.post('/', [
     try {
         let user = await User.findOne({ email });
         if (user) {
-            return res.send(400).json({ message: 'User already exists' });
+            return res.sendStatus(400).json({ message: 'User already exists' });
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -33,8 +34,18 @@ router.post('/', [
 
         await user.save();
 
-        return res.send('User created successful');
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
 
+        jwt.sign(payload, config.get('jwtSecret'), {
+            expiresIn: 360000
+        }, (error, token) => {
+            if(error) throw error;
+            res.json({token})
+        })
     } catch (error) {
         console.log(error);
         return res.status(500).send('Server internal error');
