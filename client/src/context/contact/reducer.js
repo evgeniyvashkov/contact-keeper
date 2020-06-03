@@ -18,6 +18,18 @@ export const contactReducer = (state, action) => {
                 ]
             };
 
+        case actions.SET_CURRENT:
+            return {
+                ...state,
+                contactToEdit: action.payload
+            };
+
+        case actions.CLEAR_CURRENT:
+            return {
+                ...state,
+                contactToEdit: null
+            }
+
         default:
             return state;
     }

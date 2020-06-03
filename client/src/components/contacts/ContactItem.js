@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { ContactContext } from '../../context/contact/context';
 
-export const ContactItem = ({ contact: { id, name, email, phone, type } }) => {
+export const ContactItem = ({ contact }) => {
     const contactContext = useContext(ContactContext);
-    const { deleteContact } = contactContext.actions;
+    const { id, name, email, phone, type } = contact;
+    const { deleteContact, setContactToEdit } = contactContext.actions;
 
-    const onDelete = () => deleteContact(id);
+    // const onDelete = () => deleteContact(id);
 
     return (
         <div className="card bg-light">
@@ -32,10 +33,13 @@ export const ContactItem = ({ contact: { id, name, email, phone, type } }) => {
             </ul>
 
             <div>
-                <button className="btn btn-dark btn-sm">Edit</button>
+                <button
+                    className="btn btn-dark btn-sm"
+                    onClick={() => setContactToEdit(contact)}
+                >Edit</button>
                 <button
                     className="btn btn-danger btn-sm"
-                    onClick={onDelete}
+                    onClick={() => deleteContact(id)}
                 >Delete</button>
             </div>
         </div>

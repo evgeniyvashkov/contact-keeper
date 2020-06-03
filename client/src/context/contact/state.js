@@ -23,7 +23,8 @@ export const ContactState = (props) => {
                 type: 'personal',
                 email: '1@1gamil.com'
             }
-        ]
+        ],
+        contactToEdit: null
     };
 
     const [state, dispatch] = useReducer(contactReducer, initialState);
@@ -38,13 +39,27 @@ export const ContactState = (props) => {
 
     const deleteContact = (id) => dispatch({ type: actions.DELETE_CONTACT, payload: id });
 
+    const setContactToEdit = (contact) => {
+        dispatch({
+            type: actions.SET_CURRENT,
+            payload: contact
+        })
+    };
+
+    const clearContactToEdit = () => ({
+        type: actions.CLEAR_CURRENT
+    })
+
     return (
         <ContactContext.Provider value={{
             contacts: state.contacts,
             actions: {
                 addContact,
-                deleteContact
-            }
+                deleteContact,
+                setContactToEdit,
+                clearContactToEdit
+            },
+            contactToEdit: state.contactToEdit
         }}>
             {props.children}
         </ContactContext.Provider>
