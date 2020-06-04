@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ContactContext } from '../../context/contact/context';
 
 export const ContactItem = ({ contact }) => {
     const contactContext = useContext(ContactContext);
     const { id, name, email, phone, type } = contact;
-    const { deleteContact, setContactToEdit } = contactContext.actions;
+    const { deleteContact, setContactToEdit, clearContactToEdit } = contactContext.actions;
 
-    // const onDelete = () => deleteContact(id);
+    const onDelete = () => {
+        deleteContact(id);
+        clearContactToEdit();
+    };
 
     return (
         <div className="card bg-light">
@@ -39,7 +42,7 @@ export const ContactItem = ({ contact }) => {
                 >Edit</button>
                 <button
                     className="btn btn-danger btn-sm"
-                    onClick={() => deleteContact(id)}
+                    onClick={onDelete}
                 >Delete</button>
             </div>
         </div>

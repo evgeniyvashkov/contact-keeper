@@ -46,8 +46,13 @@ export const ContactState = (props) => {
         })
     };
 
-    const clearContactToEdit = () => ({
+    const clearContactToEdit = () => dispatch({
         type: actions.CLEAR_CURRENT
+    });
+
+    const updateContact = (contact) => dispatch({
+        type: actions.UPDATE_CONTACT,
+        payload: contact
     })
 
     return (
@@ -57,7 +62,8 @@ export const ContactState = (props) => {
                 addContact,
                 deleteContact,
                 setContactToEdit,
-                clearContactToEdit
+                clearContactToEdit,
+                updateContact
             },
             contactToEdit: state.contactToEdit
         }}>

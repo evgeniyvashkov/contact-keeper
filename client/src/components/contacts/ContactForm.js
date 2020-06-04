@@ -1,29 +1,43 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ContactContext } from '../../context/contact/context';
 
 export const ContactForm = () => {
-    const contactContext = useContext(ContactContext)
+    const contactContext = useContext(ContactContext);
+    const { contactToEdit, actions: { clearContactToEdit, addContact, updateContact } } = contactContext;
 
     const initialState = {
         name: '',
         email: '',
         phone: '',
         type: 'personal'
-    }
+    };
+
+    useEffect(() => {
+        contactToEdit !== null ?
+            setContact(contactToEdit) :
+            setContact(initialState);
+    }, [contactToEdit]);
+
     const [contact, setContact] = useState(initialState);
 
     const onChange = ({ target: { name, value } }) => setContact({ ...contact, [name]: value });
 
     const onSubmit = (event) => {
         event.preventDefault();
-        contactContext.actions.addContact(contact);
+        if(contactToEdit) {
+            updateContact(contact);
+        } else {
+            addContact(contact);
+        }
+
+
         setContact(initialState);
     }
 
     const { name, email, phone, type } = contact;
     return (
         <form onSubmit={onSubmit}>
-            <h2 className="text-primary">Add Contact</h2>
+            <h2 className="text-primary">{`${contactToEdit ? 'Update' : 'Add'} Contact`}</h2>
             <input
                 name="name"
                 placeholder="Name"
@@ -58,7 +72,15 @@ export const ContactForm = () => {
                 <input
                     type="submit"
                     className="btn btn-primary btn-block"
-                    value="Add Contact" />
+                    value={`${contactToEdit ? 'Update' : 'Add'} Contact`} />
+
+                {contactToEdit &&
+                    <input
+                        type="button"
+                        className="btn btn-light btn-block"
+                        value="Clear form"
+                        onClick={clearContactToEdit}
+                    />}
             </div>
         </form>
     )

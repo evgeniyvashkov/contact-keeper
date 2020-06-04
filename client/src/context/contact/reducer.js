@@ -30,6 +30,14 @@ export const contactReducer = (state, action) => {
                 contactToEdit: null
             }
 
+        case actions.UPDATE_CONTACT:
+            return {
+                ...state,
+                contacts: state.contacts.map(contact => contact.id === action.payload.id ?
+                    action.payload :
+                    contact)
+            }
+
         default:
             return state;
     }
