@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ContactContext } from '../../context/contact/context';
 
 export const ContactItem = ({ contact }) => {

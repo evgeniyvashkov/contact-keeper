@@ -3,7 +3,8 @@ import { ContactContext } from '../../context/contact/context';
 
 export const ContactForm = () => {
     const contactContext = useContext(ContactContext);
-    const { contactToEdit, actions: { clearContactToEdit, addContact, updateContact } } = contactContext;
+    const { contactToEdit,
+        actions: { clearContactToEdit, addContact, updateContact } } = contactContext;
 
     const initialState = {
         name: '',
@@ -24,12 +25,11 @@ export const ContactForm = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        if(contactToEdit) {
+        if (contactToEdit) {
             updateContact(contact);
         } else {
             addContact(contact);
         }
-
 
         setContact(initialState);
     }

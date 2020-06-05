@@ -18,13 +18,14 @@ export const ContactState = (props) => {
             },
             {
                 id: 2,
-                name: 'Eugene',
+                name: '7',
                 phone: '777-77-77',
                 type: 'personal',
                 email: '1@1gamil.com'
             }
         ],
-        contactToEdit: null
+        contactToEdit: null,
+        filter: null
     };
 
     const [state, dispatch] = useReducer(contactReducer, initialState);
@@ -53,6 +54,15 @@ export const ContactState = (props) => {
     const updateContact = (contact) => dispatch({
         type: actions.UPDATE_CONTACT,
         payload: contact
+    });
+
+    const setFilter = (text) => dispatch({
+        type: actions.FILTER_CONTACTS,
+        payload: text
+    });
+
+    const clearFilter = () => dispatch({
+        type: actions.CLEAR_FILTER
     })
 
     return (
@@ -63,9 +73,12 @@ export const ContactState = (props) => {
                 deleteContact,
                 setContactToEdit,
                 clearContactToEdit,
-                updateContact
+                updateContact,
+                setFilter,
+                clearFilter
             },
-            contactToEdit: state.contactToEdit
+            contactToEdit: state.contactToEdit,
+            filter: state.filter
         }}>
             {props.children}
         </ContactContext.Provider>

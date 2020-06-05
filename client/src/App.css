@@ -461,3 +461,21 @@ i {
     justify-content: center;
   }
 }
+
+.animate-contact-enter {
+  opacity: 0;
+}
+
+.animate-contact-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.animate-contact-exit {
+  opacity: 1;
+}
+
+.animate-contact-exit-active {
+  opacity: 0;
+  transition: 500ms ease-in;
+}

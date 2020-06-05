@@ -28,7 +28,7 @@ export const contactReducer = (state, action) => {
             return {
                 ...state,
                 contactToEdit: null
-            }
+            };
 
         case actions.UPDATE_CONTACT:
             return {
@@ -36,7 +36,28 @@ export const contactReducer = (state, action) => {
                 contacts: state.contacts.map(contact => contact.id === action.payload.id ?
                     action.payload :
                     contact)
-            }
+            };
+
+        // case actions.FILTER_CONTACTS:
+        //     return {
+        //         ...state,
+        //         filteredContacts: state.contacts.filter(contact => {
+        //             const regExp = new RegExp(`${action.payload}`, 'gi');
+        //             return regExp.test(contact.name) || regExp.test(contact.email);
+        //         })
+        //     };
+
+        case actions.FILTER_CONTACTS:
+            return {
+                ...state,
+                filter: action.payload
+            };
+
+        case actions.CLEAR_FILTER:
+            return {
+                ...state,
+                filteredContacts: null
+            };
 
         default:
             return state;
