@@ -14,6 +14,12 @@ export const Navbar = ({ title = 'Contact Keeper', icon = 'fas fa-id-card-alt' }
                 <li>
                     <Link to='/about'>About</Link>
                 </li>
+                <li>
+                    <Link to='/register'>Registration</Link>
+                </li>
+                <li>
+                    <Link to='/login'>Login</Link>
+                </li>
             </ul>
         </div>
     )
