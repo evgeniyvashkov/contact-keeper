@@ -7,13 +7,13 @@ import * as actions from '../actionTypes';
 
 export const AuthState = (props) => {
     const initialState = {
-        token: localStorage.getItem('token'),
+        token: localStorage.getItem('token') || '',
         isAuthenticated: null,
         user: null,
         loading: true,
         error: null
     };
-    const [state, dispatch] = useReducer(initialState, authReducer);
+    const [state, dispatch] = useReducer(authReducer, initialState);
 
     return (
         <AuthContext.Provider value={{

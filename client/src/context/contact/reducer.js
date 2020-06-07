@@ -38,15 +38,6 @@ export const contactReducer = (state, action) => {
                     contact)
             };
 
-        // case actions.FILTER_CONTACTS:
-        //     return {
-        //         ...state,
-        //         filteredContacts: state.contacts.filter(contact => {
-        //             const regExp = new RegExp(`${action.payload}`, 'gi');
-        //             return regExp.test(contact.name) || regExp.test(contact.email);
-        //         })
-        //     };
-
         case actions.FILTER_CONTACTS:
             return {
                 ...state,
