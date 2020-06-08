@@ -1,8 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AlertContext } from '../../context/alert/context';
+import { AuthContext } from '../../context/auth/context';
 
 export const RegistrationForm = () => {
     const { actions: { setAlert } } = useContext(AlertContext);
+    const { error, actions: { registerUser, clearError } } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (error !== null) {
+            setAlert(error, 'danger');
+            clearError();
+        }
+    }, [error]);
+
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -20,10 +30,12 @@ export const RegistrationForm = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         if (name === '' || email === '' || password === '' || confirmPassword === '') {
-            setAlert('Please, enter all field.', 'danger')
+            return setAlert('Please, enter all field.', 'danger')
         } else if (password !== confirmPassword) {
-            setAlert('Passwords do not match.', 'danger');
-        }
+            return setAlert('Passwords do not match.', 'danger');
+        };
+
+        registerUser({ name, email, password });
     }
 
     return (
@@ -62,7 +74,7 @@ export const RegistrationForm = () => {
                     <label htmlFor="confirm-password">Confirm password</label>
                     <input
                         type="password"
-                        name="confirm-password"
+                        name="confirmPassword"
                         value={confirmPassword}
                         onChange={onChange} />
                 </div>
