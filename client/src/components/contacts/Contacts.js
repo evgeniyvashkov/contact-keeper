@@ -5,7 +5,6 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { ContactItem } from './ContactItem';
 
 export const Contacts = () => {
-
     const contactContext = useContext(ContactContext);
     const { contacts, filter } = contactContext;
     let contactsToRender;
@@ -25,7 +24,7 @@ export const Contacts = () => {
                 {
                     contactsToRender.map(contact =>
                         <CSSTransition
-                            key={contact.id}
+                            key={contact._id}
                             classNames="animate-contact"
                             timeout={300}>
                             <ContactItem contact={contact} />
