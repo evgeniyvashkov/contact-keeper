@@ -2,16 +2,20 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AlertContext } from '../../context/alert/context';
 import { AuthContext } from '../../context/auth/context';
 
-export const RegistrationForm = () => {
+export const RegistrationForm = (props) => {
     const { actions: { setAlert } } = useContext(AlertContext);
-    const { error, actions: { registerUser, clearError } } = useContext(AuthContext);
+    const { error, isAuthenticated, actions: { registerUser, clearError } } = useContext(AuthContext);
 
     useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/');
+        }
+
         if (error !== null) {
             setAlert(error, 'danger');
             clearError();
         }
-    }, [error]);
+}, [error, props.history, isAuthenticated]);
 
     const [user, setUser] = useState({
         name: '',

@@ -2,6 +2,15 @@ import * as actions from '../actionTypes';
 
 export const authReducer = (state, action) => {
     switch (action.type) {
+
+        case actions.USER_LOADED:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                user: action.payload
+            }
+
         case actions.REGISTER_SUCCESS:
             localStorage.setItem('token', action.payload.token);
 
@@ -13,6 +22,7 @@ export const authReducer = (state, action) => {
             };
 
         case actions.REGISTER_FAILED:
+        case actions.AUTH_ERROR:
             localStorage.removeItem('token');
 
             return {

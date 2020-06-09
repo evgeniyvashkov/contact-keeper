@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { setAuthToken } from './utils/setAuthToken';
 
 import { About } from './components/pages/About';
 import { Home } from './components/pages/Home';
@@ -13,6 +14,10 @@ import { AlertState } from './context/alert/state';
 import { AuthState } from './context/auth/state';
 
 import './App.css';
+
+if (localStorage.token) {
+  setAuthToken();
+}
 
 function App() {
   return (
