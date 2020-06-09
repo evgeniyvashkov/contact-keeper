@@ -12,7 +12,7 @@ export const AuthState = (props) => {
         token: localStorage.getItem('token') || '',
         isAuthenticated: null,
         user: null,
-        loading: true,
+        loading: false,
         error: null
     };
     const [state, dispatch] = useReducer(authReducer, initialState);
@@ -82,7 +82,9 @@ export const AuthState = (props) => {
         }
     };
 
-    const logoutUser = () => console.log('logout');
+    const logoutUser = () => dispatch({
+        type: actions.LOG_OUT
+    });
 
     const clearError = () => dispatch({ type: actions.CLEAR_ERRORS })
 

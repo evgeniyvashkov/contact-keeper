@@ -6,9 +6,10 @@ import { AlertContext } from '../../context/alert/context';
 export const LoginForm = (props) => {
     const { actions: { setAlert } } = useContext(AlertContext);
     const { error, isAuthenticated, actions: { loginUser, clearError } } = useContext(AuthContext);
-
+    
     useEffect(() => {
         if (isAuthenticated) {
+            console.log(1)
             props.history.push('/');
         }
 
@@ -16,8 +17,8 @@ export const LoginForm = (props) => {
             setAlert(error, 'danger');
             clearError();
         }
-        //eslint-disable-next-line
-    }, [error, props.history, isAuthenticated]);
+    
+    }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({
         email: '',
