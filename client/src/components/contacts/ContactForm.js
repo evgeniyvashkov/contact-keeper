@@ -17,6 +17,7 @@ export const ContactForm = () => {
         contactToEdit !== null ?
             setContact(contactToEdit) :
             setContact(initialState);
+        //eslint-disable-next-line
     }, [contactToEdit]);
 
     const [contact, setContact] = useState(initialState);

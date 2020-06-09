@@ -15,6 +15,7 @@ export const RegistrationForm = (props) => {
             setAlert(error, 'danger');
             clearError();
         }
+        //eslint-disable-next-line
 }, [error, props.history, isAuthenticated]);
 
     const [user, setUser] = useState({
