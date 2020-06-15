@@ -8,13 +8,34 @@ import * as actions from '../actionTypes';
 
 export const ContactState = (props) => {
     const initialState = {
-        contacts: [],
+        contacts: null,
         contactToEdit: null,
         filter: null,
-        error: null
+        error: null,
+        loading: true
     };
 
     const [state, dispatch] = useReducer(contactReducer, initialState);
+
+    const getContacts = async () => {
+        try {
+            const res = await axios.get('/api/contacts');
+            dispatch({
+                type: actions.GET_CONTACTS,
+                payload: res.data
+            })
+
+        } catch (error) {
+            dispatch({
+                type: actions.CONTACT_ERROR,
+                payload: error.response.message
+            })
+        }
+    };
+
+    const clearContacts = () => dispatch({
+        type: actions.CLEAR_CONTACTS
+    })
 
     const addContact = async (contact) => {
         const config = {
@@ -76,8 +97,11 @@ export const ContactState = (props) => {
                 clearContactToEdit,
                 updateContact,
                 setFilter,
-                clearFilter
+                clearFilter,
+                getContacts,
+                clearContacts
             },
+            loading: state.loading,
             contactToEdit: state.contactToEdit,
             filter: state.filter
         }}>

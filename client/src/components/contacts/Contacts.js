@@ -1,13 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ContactContext } from '../../context/contact/context';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+import { Spinner } from '../layout/Spinner';
 import { ContactItem } from './ContactItem';
 
 export const Contacts = () => {
     const contactContext = useContext(ContactContext);
-    const { contacts, filter } = contactContext;
+    const { contacts, filter, loading, actions: { getContacts } } = contactContext;
     let contactsToRender;
+
+    useEffect(() => {
+        getContacts();
+        //eslint-disable-next-line
+    }, []);
 
     if (filter !== null) {
         contactsToRender = contacts.filter(contact => {
@@ -18,9 +24,13 @@ export const Contacts = () => {
         contactsToRender = contacts;
     };
 
+    if (contacts !== null && contacts.length === 0) {
+        return <p>Please, add a new contact</p>
+    }
+
     return (
         <React.Fragment>
-            <TransitionGroup>
+            {contactsToRender && !loading ? (<TransitionGroup>
                 {
                     contactsToRender.map(contact =>
                         <CSSTransition
@@ -31,7 +41,9 @@ export const Contacts = () => {
                         </CSSTransition>
                     )
                 }
-            </TransitionGroup>
+            </TransitionGroup>) : <Spinner />
+            }
         </React.Fragment>
+
     )
 }

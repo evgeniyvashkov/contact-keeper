@@ -2,12 +2,15 @@ import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth/context';
+import { ContactContext } from '../../context/contact/context';
 
 export const Navbar = ({ title = 'Contact Keeper', icon = 'fas fa-id-card-alt' }) => {
     const { user, isAuthenticated, actions: { logoutUser } } = useContext(AuthContext);
+    const { actions: { clearContacts } } = useContext(ContactContext);
 
-    const onLogoutUser = (event) => {
+    const onLogoutUser = () => {
         logoutUser();
+        clearContacts();
     }
 
     const authLink = (

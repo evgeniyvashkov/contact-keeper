@@ -9,7 +9,6 @@ export const LoginForm = (props) => {
     
     useEffect(() => {
         if (isAuthenticated) {
-            console.log(1)
             props.history.push('/');
         }
 
@@ -17,7 +16,7 @@ export const LoginForm = (props) => {
             setAlert(error, 'danger');
             clearError();
         }
-    
+    //eslint-disable-next-line
     }, [error, isAuthenticated, props.history]);
 
     const [user, setUser] = useState({

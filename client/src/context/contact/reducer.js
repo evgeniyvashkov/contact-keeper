@@ -2,6 +2,20 @@ import * as actions from '../actionTypes';
 
 export const contactReducer = (state, action) => {
     switch (action.type) {
+        case actions.GET_CONTACTS:
+            return {
+                ...state,
+                contacts: action.payload,
+                loading: false
+            };
+
+        case actions.CLEAR_CONTACTS:
+            return {
+                contacts: null,
+                contactToEdit: null,
+                filter: null,
+                error: null
+            }
 
         case actions.ADD_CONTACT:
             return {
@@ -9,10 +23,12 @@ export const contactReducer = (state, action) => {
                 contacts: [
                     ...state.contacts,
                     action.payload
-                ]
+                ],
+                loading: false
             };
 
         case actions.ADD_CONTACT_FAILED:
+        case actions.CONTACT_ERROR:
             return {
                 ...state,
                 error: action.payload
@@ -21,9 +37,9 @@ export const contactReducer = (state, action) => {
         case actions.DELETE_CONTACT:
             return {
                 ...state,
-                contacts: state.contacts.filter(contact => contact.id !== action.payload)
+                contacts: state.contacts.filter(contact => contact.id !== action.payload),
+                loading: false
             };
-
 
         case actions.SET_CURRENT:
             return {
@@ -42,7 +58,8 @@ export const contactReducer = (state, action) => {
                 ...state,
                 contacts: state.contacts.map(contact => contact.id === action.payload.id ?
                     action.payload :
-                    contact)
+                    contact),
+                loading: false
             };
 
         case actions.FILTER_CONTACTS:
