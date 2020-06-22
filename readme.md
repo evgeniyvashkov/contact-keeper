@@ -1,8 +1,13 @@
 #Contact Keeper
 
-#### Main dependencies
+[Show example on Heroku](https://nameless-ocean-46041.herokuapp.com/login)
 
-+ express
+## Test account:  
+**email:** user1@mail.com  
+**password:** 123456
+
+
+#### used + express
 + bcryptjs
 + jsonwebtoken
 + config
